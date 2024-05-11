@@ -1,0 +1,8 @@
+Task 4: Side Navigation & Media Fetching
+Description:
+Create a beautiful design of application. Add a Navigation Drawer with a screen.
+Note: Must Implement on Android/ios updated versions(Gallery and Camera)
+Navigation drawer with menu of following
+Video screen will get video from camera and gallery and play video in videoview and thumbnail of video will be shown in image view
+Image screen will get image from camera and gallery and load image in imageView
+Audio screen will get audio from device and play audio in audio player
