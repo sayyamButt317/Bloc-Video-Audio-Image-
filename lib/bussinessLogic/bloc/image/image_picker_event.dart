@@ -1,9 +1,8 @@
 part of 'image_picker_bloc.dart';
 
-abstract class ImagePickerEvent extends Equatable {
+abstract class ImagePickerEvent  {
   const ImagePickerEvent();
 
-  @override
   List<Object> get props => [];
 }
 

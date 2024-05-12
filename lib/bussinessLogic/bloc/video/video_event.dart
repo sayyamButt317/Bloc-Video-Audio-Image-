@@ -1,8 +1,10 @@
 part of 'video_bloc.dart';
 
-sealed class VideoEvent extends Equatable {
+abstract class VideoEvent  {
   const VideoEvent();
 
-  @override
   List<Object> get props => [];
 }
+class CameraRecording extends VideoEvent {}
+
+class GalleryVideoPicker extends VideoEvent {}

@@ -18,9 +18,11 @@ class ImageScreen extends StatelessWidget {
             onTap: () {
               context.read<ImagePickerBloc>().add(CameraCapture());
             },
-            child: const CircleAvatar(
-              child: Icon(
-                LineIcons.camera,
+            child: const Center(
+              child: CircleAvatar(
+                child: Icon(
+                  LineIcons.camera,
+                ),
               ),
             ));
       } else {
