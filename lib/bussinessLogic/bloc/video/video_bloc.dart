@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:camera/camera.dart';
-import 'package:video_player/video_player.dart';
 
 import '../../../helper/Utils/video_picker_utils.dart';
 

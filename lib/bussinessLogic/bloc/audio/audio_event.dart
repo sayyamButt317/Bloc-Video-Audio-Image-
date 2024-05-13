@@ -6,3 +6,9 @@ sealed class AudioEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class PlayAudio extends AudioEvent {}
+
+class PauseAudio extends AudioEvent {}
+
+class StopAudio extends AudioEvent {}
