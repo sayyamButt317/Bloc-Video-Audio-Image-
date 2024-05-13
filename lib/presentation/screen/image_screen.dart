@@ -16,7 +16,7 @@ class ImageScreen extends StatelessWidget {
       if (state.file == null) {
         return InkWell(
             onTap: () {
-              context.read<ImagePickerBloc>().add(CameraCapture());
+              context.read<ImagePickerBloc>().add(ShowPicker());
             },
             child: const Center(
               child: CircleAvatar(

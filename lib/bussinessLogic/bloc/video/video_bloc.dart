@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:camera/camera.dart';
-import 'package:equatable/equatable.dart';
 
 import '../../../helper/Utils/video_picker_utils.dart';
 
@@ -13,20 +12,18 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
     on<CameraRecording>(recordVideo);
     on<GalleryVideoPicker>(pickVideoFromGallery);
   }
-  void recordVideo(CameraRecording event, Emitter<VideoState> states)async {
-     XFile? file = await videoPickerUtils.recordVideo();
-     emit(state.copyWith(
-       file:file,
-     ));
-
+  void recordVideo(CameraRecording event, Emitter<VideoState> states) async {
+    XFile? videofile = await videoPickerUtils.recordVideo();
+    emit(state.copyWith(
+      file: videofile,
+    ));
   }
 
   void pickVideoFromGallery(
-      GalleryVideoPicker event, Emitter<VideoState> states)async {
-    XFile? file = await videoPickerUtils.pickGalleryVideo();
+      GalleryVideoPicker event, Emitter<VideoState> states) async {
+    XFile? videofile = await videoPickerUtils.pickGalleryVideo();
     emit(state.copyWith(
-      file:file,
+      file: videofile,
     ));
-
   }
 }

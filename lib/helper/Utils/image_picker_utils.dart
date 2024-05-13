@@ -5,16 +5,18 @@ class ImagePickerUtils {
   final ImagePicker _picker = ImagePicker();
 
   Future<XFile?> cameraCapture() async {
-    final XFile? file = await _picker.pickImage(source: ImageSource.camera);
-    return file;
+    final XFile? videofile =
+        await _picker.pickImage(source: ImageSource.camera);
+    return videofile;
   }
 
   Future<XFile?> pickImageFromGallery() async {
-    final XFile? file = await _picker.pickImage(source: ImageSource.gallery);
-    return file;
+    final XFile? videofile =
+        await _picker.pickImage(source: ImageSource.gallery);
+    return videofile;
   }
 
-  void showPicker({
+  showPicker({
     required BuildContext context,
   }) {
     showModalBottomSheet(

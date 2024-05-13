@@ -1,6 +1,6 @@
 part of 'image_picker_bloc.dart';
 
-abstract class ImagePickerEvent  {
+abstract class ImagePickerEvent {
   const ImagePickerEvent();
 
   List<Object> get props => [];
@@ -9,3 +9,5 @@ abstract class ImagePickerEvent  {
 class CameraCapture extends ImagePickerEvent {}
 
 class GalleryImagePicker extends ImagePickerEvent {}
+
+class ShowPicker extends ImagePickerEvent {}
