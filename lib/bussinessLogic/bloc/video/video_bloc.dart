@@ -13,7 +13,7 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
     on<CameraRecording>(recordVideo);
     on<GalleryVideoPicker>(pickVideoFromGallery);
   }
-  void recordVideo(CameraRecording event, Emitter<VideoState> states) async {
+  void recordVideo(CameraRecording event, Emitter<VideoState> emit) async {
     XFile? videofile = await videoPickerUtils.recordVideo();
     emit(state.copyWith(
       file: videofile,
@@ -21,7 +21,7 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
   }
 
   void pickVideoFromGallery(
-      GalleryVideoPicker event, Emitter<VideoState> states) async {
+      GalleryVideoPicker event, Emitter<VideoState> emit) async {
     XFile? videofile = await videoPickerUtils.pickGalleryVideo();
     emit(state.copyWith(
       file: videofile,

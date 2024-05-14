@@ -1,14 +1,10 @@
-part of 'audio_bloc.dart';
-
-sealed class AudioEvent extends Equatable {
-  const AudioEvent();
-
-  @override
+class AudioPlayerEvent {
+  const AudioPlayerEvent();
   List<Object> get props => [];
 }
 
-class PlayAudio extends AudioEvent {}
+class PlayAudioSound extends AudioPlayerEvent {}
 
-class PauseAudio extends AudioEvent {}
+class PauseAudioSound extends AudioPlayerEvent {}
 
-class StopAudio extends AudioEvent {}
+class StopAudioSound extends AudioPlayerEvent {}

@@ -33,28 +33,37 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text("Video Screen"),
-        ),
-        body: BlocBuilder<VideoBloc, VideoState>(builder: (context, state) {
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("Video Screen"),
+      ),
+      body: BlocBuilder<VideoBloc, VideoState>(
+        builder: (context, state) {
           if (state.file == null) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                InkWell(
-                  onTap: () {
+                ElevatedButton(
+                  onPressed: () {
+                    context.read<VideoBloc>().add(CameraRecording());
+                  },
+                  child: const Text('Record Fom camera'),
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () {
                     context.read<VideoBloc>().add(GalleryVideoPicker());
                   },
-                  child: videoPlayerController.value.isInitialized
-                      ? AspectRatio(
-                          aspectRatio: videoPlayerController.value.aspectRatio,
-                          child: VideoPlayer(videoPlayerController),
-                        )
-                      : const Center(
-                          child: Icon(Icons.video_camera_back_outlined)),
+                  child: const Text('Pick Video from Gallery'),
                 ),
+                const SizedBox(height: 16),
+                videoPlayerController.value.isInitialized
+                    ? AspectRatio(
+                        aspectRatio: videoPlayerController.value.aspectRatio,
+                        child: VideoPlayer(videoPlayerController),
+                      )
+                    : Container()
               ],
             );
           } else {
@@ -62,25 +71,33 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
                 VideoPlayerController.file(File(state.file!.path))
                   ..initialize();
 
-            // Return the VideoPlayer widget to play the selected video
             return AspectRatio(
               aspectRatio: videoPlayerController.value.aspectRatio,
               child: VideoPlayer(videoPlayerController),
             );
           }
-        }),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.green,
-          child: Icon(
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.green,
+        child: BlocBuilder<VideoBloc, VideoState>(
+          builder: (context, state) {
+            return Icon(
               videoPlayerController.value.isPlaying
                   ? Icons.pause
                   : Icons.play_arrow,
-              color: Colors.white),
-          onPressed: () {
-            videoPlayerController.value.isPlaying
-                ? videoPlayerController.pause()
-                : videoPlayerController.play();
+              color: Colors.white,
+            );
           },
-        ));
+        ),
+        onPressed: () {
+          if (videoPlayerController.value.isPlaying) {
+            videoPlayerController.pause();
+          } else {
+            videoPlayerController.play();
+          }
+        },
+      ),
+    );
   }
 }

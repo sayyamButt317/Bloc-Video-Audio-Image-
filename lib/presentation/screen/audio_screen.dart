@@ -1,48 +1,51 @@
-import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:msb_task4/bussinessLogic/bloc/audio/audio_bloc.dart';
+import 'package:msb_task4/bussinessLogic/bloc/audio/audio_event.dart';
+import 'package:msb_task4/helper/enum/audioplayer_enum.dart';
 
-class AudioScreen extends StatefulWidget {
+class AudioScreen extends StatelessWidget {
   const AudioScreen({super.key});
-
-  @override
-  State<AudioScreen> createState() => _AudioScreenState();
-}
-
-class _AudioScreenState extends State<AudioScreen> {
-  late AudioPlayer player = AudioPlayer();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(mainAxisSize: MainAxisSize.min, children: [
-        Row(
-          mainAxisSize: MainAxisSize.min,
+      appBar: AppBar(title: const Text('Audio Player')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            IconButton(
-              key: const Key('play_button'),
-              onPressed: _isPlaying ? null : _play,
-              iconSize: 48.0,
-              icon: const Icon(Icons.play_arrow),
-              color: Colors.lightBlue,
-            ),
-            IconButton(
-              key: const Key('pause_button'),
-              onPressed: _isPlaying ? _pause : null,
-              iconSize: 48.0,
-              icon: const Icon(Icons.pause),
-              color: Colors.lightBlue,
-            ),
-            IconButton(
-              key: const Key('stop_button'),
-              onPressed: _isPlaying || _isPaused ? _stop : null,
-              iconSize: 48.0,
-              icon: const Icon(Icons.stop),
-              color: Colors.lightBlue,
+            BlocBuilder<AudioBloc, AudioPlayerState>(
+              builder: (context, state) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    if (state == AudioEnumState.playing)
+                      IconButton(
+                        icon: const Icon(Icons.pause),
+                        onPressed: () =>
+                            context.read<AudioBloc>().add(PauseAudioSound()),
+                      ),
+                    if (state != AudioEnumState.playing)
+                      IconButton(
+                        icon: const Icon(Icons.play_arrow),
+                        onPressed: () =>
+                            context.read<AudioBloc>().add(PlayAudioSound()),
+                      ),
+                    IconButton(
+                      icon: const Icon(Icons.stop),
+                      onPressed: () =>
+                          context.read<AudioBloc>().add(StopAudioSound()),
+                    ),
+                  ],
+                );
+              },
             ),
           ],
         ),
-      ]),
+      ),
     );
   }
 }

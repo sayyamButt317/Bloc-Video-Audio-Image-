@@ -1,28 +1,31 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:msb_task4/bussinessLogic/bloc/audio/audio_event.dart';
 
-part 'audio_event.dart';
 part 'audio_state.dart';
 
-class AudioBloc extends Bloc<AudioEvent, AudioState> {
-  late AudioPlayer player = AudioPlayer();
-  AudioBloc() : super(AudioInitial()) {
-    on<PlayAudio>(play);
+class AudioBloc extends Bloc<AudioPlayerEvent, AudioPlayerState> {
+  final player = AudioPlayer();
+
+  AudioBloc() : super(const AudioPlayerState(null)) {
+    on<PlayAudioSound>(playSound);
+    on<PauseAudioSound>(pausesound);
+    on<StopAudioSound>(stopsound);
   }
 
-  Future<void> play(PlayAudio event, Emitter<AudioState> states) async {
-    await player.resume();
-    emit(state.copyWith(PlayerState.playing));
+  Future<void> playSound(
+      PlayAudioSound event, Emitter<AudioPlayerState> states) async {
+    String soundPath = "audio/song.mp3";
+    await player.play(AssetSource(soundPath));
   }
 
-  Future<void> pause(PauseAudio event, Emitter<AudioState> state) async {
+  Future<void> pausesound(
+      PauseAudioSound event, Emitter<AudioPlayerState> states) async {
     await player.pause();
-    emit(state.copyWith(PlayerState.paused));
   }
 
-  Future<void> stop(StopAudio event, Emitter<AudioState> state) async {
+  Future<void> stopsound(
+      StopAudioSound event, Emitter<AudioPlayerState> states) async {
     await player.stop();
-    emit(state.copyWith(PlayerState.stopped));
   }
 }

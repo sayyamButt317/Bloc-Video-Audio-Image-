@@ -1,9 +1,13 @@
 part of 'audio_bloc.dart';
 
-sealed class AudioState {
-  const AudioState();
+class AudioPlayerState {
+  final String? filePath;
 
-  List<Object> get props => [];
+  const AudioPlayerState(this.filePath);
+
+  AudioPlayerState copyWith({String? filePath}) {
+    return AudioPlayerState(filePath ?? this.filePath);
+  }
+
+  List<Object?> get props => [filePath];
 }
-
-final class AudioInitial extends AudioState {}

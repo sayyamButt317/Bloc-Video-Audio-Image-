@@ -13,7 +13,7 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
   }
 
   void cameraCapture(
-      CameraCapture event, Emitter<ImagePickerState> states) async {
+      CameraCapture event, Emitter<ImagePickerState> emit) async {
     XFile? file = await imagePickerUtils.cameraCapture();
     emit(state.copyWith(
       file: file,
@@ -21,7 +21,7 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
   }
 
   void galleryPicker(
-      GalleryImagePicker event, Emitter<ImagePickerState> states) async {
+      GalleryImagePicker event, Emitter<ImagePickerState> emit) async {
     XFile? file = await imagePickerUtils.pickImageFromGallery();
     emit(state.copyWith(
       file: file,
